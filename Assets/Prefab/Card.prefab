@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 6451441927231864098}
   m_Layer: 0
   m_Name: Card
-  m_TagString: Untagged
+  m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -353,6 +353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a86d901a74707d41a8d19df1e332e51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasBeenPlayed: 0
   cardBG: {fileID: 6451441925794904504}
   cardFront: {fileID: 6451441926108986185}
   spriteArray:

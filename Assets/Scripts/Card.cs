@@ -72,7 +72,7 @@ public class Card : MonoBehaviour
         //Coroutine
         GameObject card = gameObject; // parent object
 
-        // front (motive)
+        // front
         frontCard.GetComponent<SpriteRenderer>().sortingOrder = -1;
         frontCardBG.GetComponent<SpriteRenderer>().sortingOrder = 0;
 
@@ -103,10 +103,6 @@ public class Card : MonoBehaviour
             currentSprite = spriteArray[0];
         }
     }
-
-
-
-    //public void DoUncoverCard() => StartCoroutine(UncoverCard(Transform card, bool uncover));
 
     public IEnumerator UncoverCard(Transform card, bool uncover)
     {
