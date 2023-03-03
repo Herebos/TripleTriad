@@ -16,7 +16,7 @@ public class CardHolder : MonoBehaviour
 	{
 		if (Available)
 		{
-			//Card.transform.position = CardHolder.transform.position;
+			//Debug.Log("placeCard");
 			Available = !Available;
 		} else
         {

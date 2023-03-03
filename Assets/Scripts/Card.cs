@@ -1,11 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Card : MonoBehaviour
 {
     //Behaviour
     public bool hasBeenPlayed;
+
+    //DragAndDrop
+    public bool canMove;
+    public bool dragging;
+    public bool isOverCardHolder;
+    Collider2D CardCollider;
+    public GameObject CardHolder;
+    public Vector2 origin;
+    public bool Available;
+
     //Sprite
     public Transform cardBG;
     public Transform cardFront;
@@ -29,11 +40,6 @@ public class Card : MonoBehaviour
     public int Level { get; set; }
     public Rank Rank { get; set; }
     public Element? Element { get; set; }
-
-
-    
-
-
     public Card(int id, string name, int level, Rank rank, Element? element = null)
     {
         Id = id;
@@ -45,6 +51,8 @@ public class Card : MonoBehaviour
 
     private void Start()
     {
+        Id = Random.Range(0, 109);
+        hasBeenPlayed = false;
         //Sprite principale
         int i = Id + 1;
         string idString;
@@ -69,9 +77,6 @@ public class Card : MonoBehaviour
         Debug.Log("Element: " + cards.ElementAtOrDefault(Id).Element);
         */
 
-        //Coroutine
-        GameObject card = gameObject; // parent object
-
         // front
         frontCard.GetComponent<SpriteRenderer>().sortingOrder = -1;
         frontCardBG.GetComponent<SpriteRenderer>().sortingOrder = 0;
@@ -79,18 +84,66 @@ public class Card : MonoBehaviour
         // back
         backCard.GetComponent<SpriteRenderer>().sortingOrder = 1;
 
-        card.transform.parent = transform;
-        card.transform.position = transform.position;
+        //DragAndDrop
+        isOverCardHolder = false;
+        CardCollider = GetComponent<Collider2D>();
+        canMove = false;
+        dragging = false;
+        origin = gameObject.transform.position;
+        Debug.Log(origin);
 
     }
 
     void Update()
     {
+        //Test change Owner
         if (Input.GetKeyDown(KeyCode.Space))
         {
             ChangeSprite();
             cardBG.GetComponent<SpriteRenderer>().sprite = currentSprite;
         }
+
+        //DragAnd(Drop -> CardController)
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        if (Input.GetMouseButtonDown(0) && !hasBeenPlayed)
+        {
+            if(CardCollider == Physics2D.OverlapPoint(mousePos))
+            {
+                canMove = true;
+            } else
+            {
+                canMove = false;
+            } if(canMove)
+            {
+                dragging = true;
+            }
+        }
+        if(dragging)
+        {
+            transform.position = mousePos;
+        } 
+    }
+
+    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        isOverCardHolder = true;
+        CardHolder = collision.gameObject;
+        Available = collision.gameObject.GetComponent<CardHolder>().Available;
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        isOverCardHolder = true;
+        CardHolder = collision.gameObject;
+        Available = collision.gameObject.GetComponent<CardHolder>().Available;
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        isOverCardHolder = false;
+        CardHolder = null;
     }
 
     void ChangeSprite()
@@ -138,7 +191,6 @@ public class Card : MonoBehaviour
 
         yield return 0;
     }
-
 
 
 }
