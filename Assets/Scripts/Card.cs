@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using TMPro;
 
 public class Card : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class Card : MonoBehaviour
     //Front
     public GameObject frontCard;
     public GameObject frontCardBG;
+    public GameObject canvas;
     //Back
     public GameObject backCard;
     public Sprite backSprite;
@@ -34,6 +36,10 @@ public class Card : MonoBehaviour
 
     //Card constructor
     public IEnumerable<Card> List;
+    public TextMeshProUGUI TopText;
+    public TextMeshProUGUI RightText;
+    public TextMeshProUGUI BottomText;
+    public TextMeshProUGUI LeftText;
 
     public int Id;
     public string Name { get; set; }
@@ -76,10 +82,31 @@ public class Card : MonoBehaviour
         Debug.Log("Rank: " + cards.ElementAtOrDefault(Id).Rank.Top + cards.ElementAtOrDefault(Id).Rank.Right + cards.ElementAtOrDefault(Id).Rank.Bottom + cards.ElementAtOrDefault(Id).Rank.Left);
         Debug.Log("Element: " + cards.ElementAtOrDefault(Id).Element);
         */
-
+        var cards = AllCards.List.ToList();
+        TopText.text = cards.ElementAtOrDefault(Id).Rank.Top.ToString();
+        RightText.text = cards.ElementAtOrDefault(Id).Rank.Right.ToString();
+        BottomText.text = cards.ElementAtOrDefault(Id).Rank.Bottom.ToString();
+        LeftText.text = cards.ElementAtOrDefault(Id).Rank.Left.ToString();
+        if(TopText.text == "10")
+        {
+            TopText.text = "A";
+        }
+        if (RightText.text == "10")
+        {
+            RightText.text = "A";
+        }
+        if (BottomText.text == "10")
+        {
+            BottomText.text = "A";
+        }
+        if (LeftText.text == "10")
+        {
+            LeftText.text = "A";
+        }
         // front
         frontCard.GetComponent<SpriteRenderer>().sortingOrder = -1;
         frontCardBG.GetComponent<SpriteRenderer>().sortingOrder = 0;
+        canvas.GetComponent<Canvas>().sortingOrder = -1;
 
         // back
         backCard.GetComponent<SpriteRenderer>().sortingOrder = 1;
@@ -160,8 +187,8 @@ public class Card : MonoBehaviour
     public IEnumerator UncoverCard(Transform card, bool uncover)
     {
 
-        float minAngle = uncover ? 0 : 180;
-        float maxAngle = uncover ? 180 : 0;
+        float minAngle = uncover ? 180 : 0;
+        float maxAngle = uncover ? 0 : 180;
 
         float t = 0;
         bool uncovered = false;
@@ -174,6 +201,7 @@ public class Card : MonoBehaviour
             if (((angle >= 90 && angle < 180) || (angle >= 270 && angle < 360)) && !uncovered)
             {
                 uncovered = true;
+                canvas.GetComponent<Canvas>().sortingOrder *= -1;
                 for (int i = 0; i < card.childCount; i++)
                 {
                     // reverse sorting order to show the otherside of the card
