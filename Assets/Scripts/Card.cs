@@ -57,9 +57,16 @@ public class Card : MonoBehaviour
 
     private void Start()
     {
+        //Get Camera to Canva
+        Camera MyCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        GetComponentInChildren<Canvas>().worldCamera = MyCamera;
+        //GetComponent<Canvas>().worldCamera = MyCamera;
+
         Id = Random.Range(0, 109);
         hasBeenPlayed = false;
-        //Sprite principale
+
+        //Sprite
+        //Sprite principal
         int i = Id + 1;
         string idString;
         idString = i.ToString();
@@ -70,19 +77,19 @@ public class Card : MonoBehaviour
         currentSprite = spriteArray[0];
         cardBG.GetComponent<SpriteRenderer>().sprite = currentSprite;
 
-        //test
-        /*var cards = AllCards.List.ToList();
-        var a = cards.ElementAtOrDefault(Id).Id;
-        var b = cards.ElementAtOrDefault(Id).Name;
-        Debug.Log(a);
-        Debug.Log(b);
-        Debug.Log("Sprite to load " + idString);
-        Debug.Log("Name "+ cards.ElementAtOrDefault(Id).Name);
-        Debug.Log("Level: " + cards.ElementAtOrDefault(Id).Level);
-        Debug.Log("Rank: " + cards.ElementAtOrDefault(Id).Rank.Top + cards.ElementAtOrDefault(Id).Rank.Right + cards.ElementAtOrDefault(Id).Rank.Bottom + cards.ElementAtOrDefault(Id).Rank.Left);
-        Debug.Log("Element: " + cards.ElementAtOrDefault(Id).Element);
-        */
+        //Front Sprite Pos
+        frontCard.GetComponent<SpriteRenderer>().sortingOrder = -1;
+        frontCardBG.GetComponent<SpriteRenderer>().sortingOrder = 0;
+        canvas.GetComponent<Canvas>().sortingOrder = -1;
+
+        //Back Sprite Pos
+        backCard.GetComponent<SpriteRenderer>().sortingOrder = 1;
+        
+        //Dynamic variables
         var cards = AllCards.List.ToList();
+        //Name
+        Name = cards.ElementAtOrDefault(Id).Name;
+        //Rank
         TopText.text = cards.ElementAtOrDefault(Id).Rank.Top.ToString();
         RightText.text = cards.ElementAtOrDefault(Id).Rank.Right.ToString();
         BottomText.text = cards.ElementAtOrDefault(Id).Rank.Bottom.ToString();
@@ -103,13 +110,6 @@ public class Card : MonoBehaviour
         {
             LeftText.text = "A";
         }
-        // front
-        frontCard.GetComponent<SpriteRenderer>().sortingOrder = -1;
-        frontCardBG.GetComponent<SpriteRenderer>().sortingOrder = 0;
-        canvas.GetComponent<Canvas>().sortingOrder = -1;
-
-        // back
-        backCard.GetComponent<SpriteRenderer>().sortingOrder = 1;
 
         //DragAndDrop
         isOverCardHolder = false;
@@ -117,8 +117,20 @@ public class Card : MonoBehaviour
         canMove = false;
         dragging = false;
         origin = gameObject.transform.position;
-        Debug.Log(origin);
+        //Debug.Log(origin);
 
+        /*//test
+        var cards = AllCards.List.ToList();
+        var a = cards.ElementAtOrDefault(Id).Id;
+        var b = cards.ElementAtOrDefault(Id).Name;
+        Debug.Log(a);
+        Debug.Log(b);
+        Debug.Log("Sprite to load " + idString);
+        Debug.Log("Name "+ cards.ElementAtOrDefault(Id).Name);
+        Debug.Log("Level: " + cards.ElementAtOrDefault(Id).Level);
+        Debug.Log("Rank: " + cards.ElementAtOrDefault(Id).Rank.Top + cards.ElementAtOrDefault(Id).Rank.Right + cards.ElementAtOrDefault(Id).Rank.Bottom + cards.ElementAtOrDefault(Id).Rank.Left);
+        Debug.Log("Element: " + cards.ElementAtOrDefault(Id).Element);
+        */
     }
 
     void Update()
