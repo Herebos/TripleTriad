@@ -1,6 +1,7 @@
 //Thanks to GunnarKarlsson
 using System;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class CardController : MonoBehaviour
 {
@@ -35,6 +36,8 @@ public class CardController : MonoBehaviour
 				g.GetComponent<Card>().transform.position = g.GetComponent<Card>().CardHolder.transform.position;
 				g.GetComponent<Card>().canMove = false;
 				g.GetComponent<Card>().dragging = false;
+				g.GetComponent<SortingGroup>().sortingOrder = g.GetComponent<Card>().OrderLayer;
+				g.GetComponent<Card>().transform.GetChild(0).GetChild(1).gameObject.GetComponent<Canvas>().sortingOrder = g.GetComponent<Card>().childCanvasOrder;
 				//hasBeenPlayed = true; //implement soonTM
 				g.GetComponent<Card>().CardHolder.GetComponent<CardHolder>().PlaceCard();
 			}
@@ -44,6 +47,8 @@ public class CardController : MonoBehaviour
 				g.GetComponent<Card>().transform.position = g.GetComponent<Card>().origin;
 				g.GetComponent<Card>().canMove = false;
 				g.GetComponent<Card>().dragging = false;
+				g.GetComponent<SortingGroup>().sortingOrder = g.GetComponent<Card>().OrderLayer;
+				g.GetComponent<Card>().transform.GetChild(0).GetChild(1).gameObject.GetComponent<Canvas>().sortingOrder = g.GetComponent<Card>().childCanvasOrder;
 			}
 			//Get to originPos if CardHolder == false && Available == false (on Board Mat)
 			if (Input.GetMouseButtonUp(0) && !g.GetComponent<Card>().isOverCardHolder)
@@ -51,6 +56,8 @@ public class CardController : MonoBehaviour
 				g.GetComponent<Card>().transform.position = g.GetComponent<Card>().origin;
 				g.GetComponent<Card>().canMove = false;
 				g.GetComponent<Card>().dragging = false;
+				g.GetComponent<SortingGroup>().sortingOrder = g.GetComponent<Card>().OrderLayer;
+				g.GetComponent<Card>().transform.GetChild(0).GetChild(1).gameObject.GetComponent<Canvas>().sortingOrder = g.GetComponent<Card>().childCanvasOrder;
 			}
 		}
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Rendering;
 
 public class Card : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class Card : MonoBehaviour
     public GameObject CardHolder;
     public Vector2 origin;
     public bool Available;
+    public int OrderLayer;
+    public GameObject canvas;
+    public int childCanvasOrder;
 
     //Sprite
     public Transform cardBG;
@@ -28,7 +32,7 @@ public class Card : MonoBehaviour
     //Front
     public GameObject frontCard;
     public GameObject frontCardBG;
-    public GameObject canvas;
+    bool canvaEnabled;
     //Back
     public GameObject backCard;
     public Sprite backSprite;
@@ -60,7 +64,6 @@ public class Card : MonoBehaviour
         //Get Camera to Canva
         Camera MyCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         GetComponentInChildren<Canvas>().worldCamera = MyCamera;
-        //GetComponent<Canvas>().worldCamera = MyCamera;
 
         Id = Random.Range(0, 109);
         hasBeenPlayed = false;
@@ -80,7 +83,8 @@ public class Card : MonoBehaviour
         //Front Sprite Pos
         frontCard.GetComponent<SpriteRenderer>().sortingOrder = -1;
         frontCardBG.GetComponent<SpriteRenderer>().sortingOrder = 0;
-        canvas.GetComponent<Canvas>().sortingOrder = -1;
+        canvas.GetComponent<Canvas>().enabled = false;
+        canvaEnabled = false;
 
         //Back Sprite Pos
         backCard.GetComponent<SpriteRenderer>().sortingOrder = 1;
@@ -117,6 +121,8 @@ public class Card : MonoBehaviour
         canMove = false;
         dragging = false;
         origin = gameObject.transform.position;
+        OrderLayer = gameObject.GetComponent<SortingGroup>().sortingOrder;
+        childCanvasOrder = gameObject.transform.GetChild(0).GetChild(1).GetComponent<Canvas>().sortingOrder;
         //Debug.Log(origin);
 
         /*//test
@@ -161,6 +167,10 @@ public class Card : MonoBehaviour
         if(dragging)
         {
             transform.position = mousePos;
+            gameObject.GetComponent<SortingGroup>().sortingOrder = 10;
+            gameObject.transform.GetChild(0).GetChild(1).gameObject.GetComponent<Canvas>().sortingOrder = 10;
+            //childCanvasOrder = 10;
+            //Debug.Log(childCanvasOrder);
         } 
     }
 
@@ -213,7 +223,15 @@ public class Card : MonoBehaviour
             if (((angle >= 90 && angle < 180) || (angle >= 270 && angle < 360)) && !uncovered)
             {
                 uncovered = true;
-                canvas.GetComponent<Canvas>().sortingOrder *= -1;
+                if (!canvaEnabled)
+                {
+                    canvaEnabled = !canvaEnabled;
+                    canvas.GetComponent<Canvas>().enabled = canvaEnabled;
+                } else
+                {
+                    canvaEnabled = !canvaEnabled;
+                    canvas.GetComponent<Canvas>().enabled = canvaEnabled;
+                }
                 for (int i = 0; i < card.childCount; i++)
                 {
                     // reverse sorting order to show the otherside of the card
