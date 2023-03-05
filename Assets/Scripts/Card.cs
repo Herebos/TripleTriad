@@ -7,8 +7,12 @@ using UnityEngine.Rendering;
 
 public class Card : MonoBehaviour
 {
+    //Test
+    
+
     //Behaviour
     public bool hasBeenPlayed;
+    float target;
 
     //DragAndDrop
     public bool canMove;
@@ -121,6 +125,7 @@ public class Card : MonoBehaviour
         canMove = false;
         dragging = false;
         origin = gameObject.transform.position;
+        target = origin.x - 1.0f;
         OrderLayer = gameObject.GetComponent<SortingGroup>().sortingOrder;
         childCanvasOrder = gameObject.transform.GetChild(0).GetChild(1).GetComponent<Canvas>().sortingOrder;
         //Debug.Log(origin);
@@ -193,6 +198,22 @@ public class Card : MonoBehaviour
     {
         isOverCardHolder = false;
         CardHolder = null;
+    }
+
+    private void OnMouseOver()
+    {
+        if (!isOverCardHolder)
+        {
+            transform.position = new Vector2(target, transform.position.y);
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        if (!isOverCardHolder)
+        {
+            transform.position = origin;
+        }
     }
 
     void ChangeSprite()

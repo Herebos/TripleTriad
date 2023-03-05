@@ -1012,6 +1012,9 @@ MonoBehaviour:
   CardHolder: {fileID: 0}
   origin: {x: 0, y: 0}
   Available: 0
+  OrderLayer: 0
+  canvas: {fileID: 663071586069380825}
+  childCanvasOrder: 0
   cardBG: {fileID: 8844645003933275371}
   cardFront: {fileID: 8829510070901623960}
   spriteArray:
@@ -1020,7 +1023,6 @@ MonoBehaviour:
   - {fileID: 2113034281, guid: a1ab2bfc6bad196418f749d5d1994171, type: 3}
   frontCard: {fileID: 1244533143520734028}
   frontCardBG: {fileID: 3232232278138690734}
-  canvas: {fileID: 663071586069380825}
   backCard: {fileID: 558908264770425865}
   backSprite: {fileID: 21300000, guid: 5f1ba0f32c62a7c488b4feb8aab336ef, type: 3}
   uncoverTime: 12
@@ -1042,7 +1044,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.010133088, y: 0.016325355}
+  m_Offset: {x: 0.0072875023, y: -0.020299911}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1053,7 +1055,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.0136075, y: 1.7054851}
+  m_Size: {x: 2.2238684, y: 2.1937728}
   m_EdgeRadius: 0
 --- !u!50 &5713111939978192887
 Rigidbody2D:

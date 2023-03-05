@@ -18,17 +18,21 @@ public class CardController : MonoBehaviour
 				Debug.Log(hit.collider.name);
 				StartCoroutine(hit.collider.GetComponent<Card>().UncoverCard(hit.collider.gameObject.transform, true));
 			}
+			/*if (hit.collider.CompareTag("Card") && !hit.collider.gameObject.GetComponent<Card>().isOverCardHolder)
+			{
+				hit.collider.gameObject.transform.position = new Vector2(hit.collider.gameObject.transform.position.x - 1.0f, hit.collider.gameObject.transform.position.y);
+			}*/
 		} catch(NullReferenceException)
         {
 			//Debug.Log("No card");
         }
+		
 
 
 		//(Drag)AndDrop
 		if (Input.GetMouseButtonUp(0))
 		{
 			GameObject g = hit.collider.gameObject;
-			Debug.Log(g);
 
 			//Place Card if CardHolder == true && Available == true
 			if (Input.GetMouseButtonUp(0) && g.GetComponent<Card>().isOverCardHolder && g.GetComponent<Card>().Available)
