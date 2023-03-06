@@ -16,7 +16,6 @@ public class CardHolder : MonoBehaviour
 	{
 		if (Available)
 		{
-			//Debug.Log("placeCard");
 			Available = !Available;
 		} else
         {

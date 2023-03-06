@@ -128,7 +128,6 @@ public class Card : MonoBehaviour
         target = origin.x - 1.0f;
         OrderLayer = gameObject.GetComponent<SortingGroup>().sortingOrder;
         childCanvasOrder = gameObject.transform.GetChild(0).GetChild(1).GetComponent<Canvas>().sortingOrder;
-        //Debug.Log(origin);
 
         /*//test
         var cards = AllCards.List.ToList();
@@ -174,8 +173,6 @@ public class Card : MonoBehaviour
             transform.position = mousePos;
             gameObject.GetComponent<SortingGroup>().sortingOrder = 10;
             gameObject.transform.GetChild(0).GetChild(1).gameObject.GetComponent<Canvas>().sortingOrder = 10;
-            //childCanvasOrder = 10;
-            //Debug.Log(childCanvasOrder);
         } 
     }
 

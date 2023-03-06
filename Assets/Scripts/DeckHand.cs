@@ -23,7 +23,6 @@ public class DeckHand : MonoBehaviour
             newCard.AddComponent<SortingGroup>().sortingOrder = i;
             canvas = newCard.transform.GetChild(0).GetChild(1).gameObject;
             canvas.GetComponent<Canvas>().sortingOrder = i;
-            //GameObject.Find("Canvas").GetComponent<Canvas>().sortingOrder = i;
             i++;
             Cards.Add(newCard);
         }
