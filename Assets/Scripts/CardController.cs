@@ -1,29 +1,25 @@
-//Thanks to GunnarKarlsson
+//Thanks to GunnarKarlsson's Drag&Drop
 using System;
 using UnityEngine;
 using UnityEngine.Rendering;
+using System.Collections.Generic;
+using System.Collections;
 
 public class CardController : MonoBehaviour
 {
-	void Update()
+	//Get Cards on boards for flip routine
+	GameObject[] cardOnBoard;
+
+	private void Start()
+    {
+		//Flip routine
+		StartCoroutine(GetAndFlip(0.8f));
+	}
+
+    void Update()
 	{
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
-		
-		//Flip Card
-		try
-		{
-			if (Input.GetMouseButtonDown(1) && hit.collider.CompareTag("Card")) //Change when drag & drop is up
-			{
-				Debug.Log(hit.collider.name);
-				StartCoroutine(hit.collider.GetComponent<Card>().UncoverCard(hit.collider.gameObject.transform, true));
-			}
-		} catch(NullReferenceException)
-        {
-			//Debug.Log("No card");
-        }
-		
-
 
 		//(Drag)AndDrop
 		if (Input.GetMouseButtonUp(0))
@@ -63,5 +59,20 @@ public class CardController : MonoBehaviour
 
 	}
 
+	//Flip routine
+	IEnumerator GetAndFlip(float delay)
+	{
+		yield return new WaitForSeconds(delay);
+		//5 Cards on Boards
+		for (var i = 0; i < 5; i++)
+		{
+			cardOnBoard = GameObject.FindGameObjectsWithTag("Card");
+		}
+		foreach (var n in cardOnBoard)
+		{
+			StartCoroutine(n.GetComponent<Card>().UncoverCard(n.transform, true));
+			yield return new WaitForSeconds(0.3f);
+		}
+	}
 
 }
