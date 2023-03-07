@@ -54,12 +54,14 @@ public class Card : MonoBehaviour
     public int Level { get; set; }
     public Rank Rank { get; set; }
     public Element? Element { get; set; }
-    public Card(int id, string name, int level, Rank rank, Element? element = null)
+    public int Price;
+    public Card(int id, string name, int level, Rank rank, int price, Element? element = null)
     {
         Id = id;
         Name = name;
         Level = level;
         Rank = rank;
+        Price = price;
         Element = element;
     }
 

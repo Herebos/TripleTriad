@@ -1,0 +1,129 @@
+[Level 1]
+Geezard = Bogomile
+Funguar = Fungus
+BiteBug = Elmidea
+RedBat = Nocturnus
+Blobra = Flan
+Gayla = Aphide
+Gesper = Elastos
+FastitocalonF = Diodon
+BloodSoul = Carnidéa
+Caterchipillar = Larva
+Cockatrice = Gallus
+
+[Level 2]
+Grat = Orchida
+Buel = Schizoïd
+Mesmerize = Licorne
+GlacialEye = Xylopode
+Belhelmel = Koatl
+Thrustaevis = Malaku
+Anacondaur = Arconada
+Creeps = Formicide
+Grendel = Feng
+Jelleye = Héra
+GrandMantis = Selek
+
+[Level 3]
+Forbidden = Weevil
+Armadodo = Scavenger
+TriFace = Adéphage
+Fastitocalon = Phantom
+SnowLion = Satyrux
+Ochu = Trogiidae
+Sam08G = Barbarian
+DeathClaw = Berserker
+Cactuar = Pampa
+Tonberry = Tomberry
+AbyssWorm = Célébis
+
+[Level 4]
+Turtapod = Eiffel
+Vysage = Cariatide
+TRexaur = T-rex
+Bomb = Bombo
+Blitz = Tikal
+Wendigo = 
+Torama = Marsupial
+Imp = Draconus
+BlueDragon = Moloch
+Adamantoise = Ao
+Hexadragon = Polyphage
+
+[Level 5]
+IronGiant = Ekarissor
+Behemoth = Kanibal
+Chimera = Chimaira
+PuPu = Koyo K
+Elastoid = Protesis
+Gim47N = Pikasso
+Malboro = Xylomid
+RubyDragon = Griffon
+Elnoyle = Sulfor
+TonberryKing = Roi Tomberry
+BiggsWedge = Wedge/Biggs
+
+[Level 6]
+FujinRaijin = Fujin/Raijin
+Elvoret = Sulfura
+XAtm092 = Goliath
+Granaldo = Lygus
+Gerogero = Écorché
+Iguion = Iguanor
+Abadon = Hornet
+Trauma = Flotix
+Oilboyle = Cyanide
+ShumiTribe = Shumi
+Krysta = Krystal
+
+[Level 7]
+Propagator = Alienator
+JumboCactuar = Pampa Sr
+TriPoint = Acron
+Gargantua = Agamemnon
+MobileType8 = Anakronox
+Sphinxara = Mithra
+Tiamat = Acarnan
+Bgh251F2 = Omniborg
+RedGiant = Attila
+Catoblepas = Fabryce
+UltimaWeapon = Ultima Arma
+
+[Level 8]
+ChubbyChocobo = Grochocobo
+Angelo = 
+Gilgamesh = 
+MiniMog = 
+Chicobo = 
+Quezacotl = Golgotha
+Shiva = 
+Ifrit = 
+Siren = Ondine
+Sacred = Tauros
+Minotaur = Taurux
+
+[Level 9]
+Carbuncle = 
+Diablos = Nosferatu
+Leviathan = 
+Odin = 
+Pandemona = Zéphyr
+Cerberus = Cerbères
+Alexander = 
+Phoenix = Phénix
+Bahamut = 
+Doomtrain = Helltrain
+Eden = Orbital
+
+[Level 10]
+Ward = 
+Kiros = 
+Laguna = 
+Selphie = 
+Quistis = 
+Irvine = 
+Zell = 
+Rinoa = Linoa
+Edea = 
+Seifer = 
+Squall = 
