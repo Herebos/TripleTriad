@@ -926,7 +926,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8428709209511550070}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1.4500002, y: 1.35, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1031,6 +1031,7 @@ MonoBehaviour:
   BottomText: {fileID: 5744008996134619750}
   LeftText: {fileID: 6672998081940323745}
   Id: 78
+  Price: 0
 --- !u!61 &7885009767922744093
 BoxCollider2D:
   m_ObjectHideFlags: 0

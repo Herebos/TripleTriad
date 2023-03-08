@@ -20,6 +20,11 @@ public class CardController : MonoBehaviour
 	{
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+		//Test
+		if (Input.GetMouseButtonDown(1))
+		{
+			StartCoroutine(hit.collider.gameObject.GetComponent<Card>().UncoverCard(hit.collider.gameObject.GetComponent<Card>().transform, true));
+		}
 
 		//(Drag)AndDrop
 		if (Input.GetMouseButtonUp(0))

@@ -17,7 +17,6 @@ public class DeckHand : MonoBehaviour
     {
         foreach(var holder in HandList)
         {
-            Debug.Log(holder.transform.position);
             handPos = holder.transform.position;
             GameObject newCard = Instantiate(Card, handPos, Quaternion.identity);
             newCard.AddComponent<SortingGroup>().sortingOrder = i;

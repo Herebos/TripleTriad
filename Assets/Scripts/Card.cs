@@ -8,7 +8,6 @@ using UnityEngine.Rendering;
 public class Card : MonoBehaviour
 {
     //Test
-    
 
     //Behaviour
     public bool hasBeenPlayed;
@@ -67,6 +66,9 @@ public class Card : MonoBehaviour
 
     private void Start()
     {
+        //Test
+        
+
         //Get Camera to Canva
         Camera MyCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         GetComponentInChildren<Canvas>().worldCamera = MyCamera;
@@ -172,6 +174,21 @@ public class Card : MonoBehaviour
         }
         if(dragging)
         {
+            Vector3 mousePos2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePos2.z = Camera.main.nearClipPlane - (float)0.3;
+            Vector3 cardPos = transform.position; //x don't move TODO
+            Vector2 direction = mousePos2 - cardPos;
+            Debug.Log("1 "+cardPos);
+            Debug.Log("2 " + mousePos2);
+            Debug.Log("3 " + direction);
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            float degreesPerSecond = 90.0f * Time.deltaTime;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, degreesPerSecond);
+            ////////////////
+            ///Lerp and Slerp ?
+            
+            ////////////////
+            
             transform.position = mousePos;
             gameObject.GetComponent<SortingGroup>().sortingOrder = 10;
             gameObject.transform.GetChild(0).GetChild(1).gameObject.GetComponent<Canvas>().sortingOrder = 10;
@@ -212,6 +229,7 @@ public class Card : MonoBehaviour
         if (!isOverCardHolder)
         {
             transform.position = origin;
+            transform.eulerAngles = new Vector3(0,0,0);
         }
     }
 
