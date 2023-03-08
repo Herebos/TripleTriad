@@ -174,22 +174,14 @@ public class Card : MonoBehaviour
         }
         if(dragging)
         {
+            //Drag effect
             Vector3 mousePos2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos2.z = Camera.main.nearClipPlane - (float)0.3;
-            Vector3 cardPos = transform.position; //x don't move TODO
-            Vector2 direction = mousePos2 - cardPos;
-            Debug.Log("1 "+cardPos);
-            Debug.Log("2 " + mousePos2);
-            Debug.Log("3 " + direction);
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            Vector2 direction = mousePos2 - transform.position;
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             float degreesPerSecond = 90.0f * Time.deltaTime;
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, degreesPerSecond);
-            ////////////////
-            ///Lerp and Slerp ?
-            
-            ////////////////
-            
-            transform.position = mousePos;
+            transform.SetPositionAndRotation(mousePos, Quaternion.RotateTowards(transform.rotation, targetRotation, degreesPerSecond));
+            //Sorting Order
             gameObject.GetComponent<SortingGroup>().sortingOrder = 10;
             gameObject.transform.GetChild(0).GetChild(1).gameObject.GetComponent<Canvas>().sortingOrder = 10;
         } 
@@ -216,7 +208,7 @@ public class Card : MonoBehaviour
         CardHolder = null;
     }
 
-    private void OnMouseOver()
+    private void OnMouseEnter()
     {
         if (!isOverCardHolder)
         {
@@ -228,8 +220,7 @@ public class Card : MonoBehaviour
     {
         if (!isOverCardHolder)
         {
-            transform.position = origin;
-            transform.eulerAngles = new Vector3(0,0,0);
+           transform.position = origin;
         }
     }
 

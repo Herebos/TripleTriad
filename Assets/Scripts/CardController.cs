@@ -35,6 +35,7 @@ public class CardController : MonoBehaviour
 			if (Input.GetMouseButtonUp(0) && g.GetComponent<Card>().isOverCardHolder && g.GetComponent<Card>().Available)
 			{
 				g.GetComponent<Card>().transform.position = g.GetComponent<Card>().CardHolder.transform.position;
+				g.GetComponent<Card>().transform.rotation = Quaternion.Euler(0, 0, 0);
 				g.GetComponent<Card>().canMove = false;
 				g.GetComponent<Card>().dragging = false;
 				g.GetComponent<SortingGroup>().sortingOrder = g.GetComponent<Card>().OrderLayer;
@@ -46,6 +47,7 @@ public class CardController : MonoBehaviour
 			if (Input.GetMouseButtonUp(0) && g.GetComponent<Card>().isOverCardHolder && !g.GetComponent<Card>().Available)
 			{
 				g.GetComponent<Card>().transform.position = g.GetComponent<Card>().origin;
+				g.GetComponent<Card>().transform.rotation = Quaternion.Euler(0, 0, 0);
 				g.GetComponent<Card>().canMove = false;
 				g.GetComponent<Card>().dragging = false;
 				g.GetComponent<SortingGroup>().sortingOrder = g.GetComponent<Card>().OrderLayer;
@@ -55,6 +57,7 @@ public class CardController : MonoBehaviour
 			if (Input.GetMouseButtonUp(0) && !g.GetComponent<Card>().isOverCardHolder)
 			{
 				g.GetComponent<Card>().transform.position = g.GetComponent<Card>().origin;
+				g.GetComponent<Card>().transform.rotation = Quaternion.Euler(0, 0, 0);
 				g.GetComponent<Card>().canMove = false;
 				g.GetComponent<Card>().dragging = false;
 				g.GetComponent<SortingGroup>().sortingOrder = g.GetComponent<Card>().OrderLayer;
@@ -69,7 +72,7 @@ public class CardController : MonoBehaviour
 	{
 		yield return new WaitForSeconds(delay);
 		//5 Cards on Boards
-		for (var i = 0; i < 5; i++)
+		for (var i = 0; i < 4; i++)
 		{
 			cardOnBoard = GameObject.FindGameObjectsWithTag("Card");
 		}
