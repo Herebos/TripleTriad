@@ -11,8 +11,9 @@ public class Card : MonoBehaviour
 
     //Behaviour
     public bool hasBeenPlayed;
-    float target;
-
+    float targetBlue;
+    float targetRed;
+    
     //DragAndDrop
     public bool canMove;
     public bool dragging;
@@ -40,6 +41,10 @@ public class Card : MonoBehaviour
     public GameObject backCard;
     public Sprite backSprite;
     public float uncoverTime = 12.0f;
+
+    //Attack
+    [SerializeField] private Side[] sides = new Side[4];
+    [field: SerializeField] public Team Team { get; set; }
 
     //Card constructor
     public IEnumerable<Card> List;
@@ -73,8 +78,20 @@ public class Card : MonoBehaviour
         Camera MyCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         GetComponentInChildren<Canvas>().worldCamera = MyCamera;
 
+        //Behaviour
         Id = Random.Range(0, 109);
         hasBeenPlayed = false;
+        UpdateTeam(this.Team);
+        if(Team == Team.BLUE)
+        {
+            //cardBG.GetComponent<SpriteRenderer>().sprite = currentSprite;
+            cardBG.GetComponent<SpriteRenderer>().sprite = spriteArray[1];
+        }
+        if (Team == Team.RED)
+        {
+            //cardBG.GetComponent<SpriteRenderer>().sprite = currentSprite;
+            cardBG.GetComponent<SpriteRenderer>().sprite = spriteArray[2];
+        }
 
         //Sprite
         //Sprite principal
@@ -85,8 +102,8 @@ public class Card : MonoBehaviour
         cardFront.GetComponent<SpriteRenderer>().sprite = image;
 
         //Sprite background
-        currentSprite = spriteArray[0];
-        cardBG.GetComponent<SpriteRenderer>().sprite = currentSprite;
+        //currentSprite = spriteArray[0];
+        //cardBG.GetComponent<SpriteRenderer>().sprite = currentSprite;
 
         //Front Sprite Pos
         frontCard.GetComponent<SpriteRenderer>().sortingOrder = -1;
@@ -129,7 +146,8 @@ public class Card : MonoBehaviour
         canMove = false;
         dragging = false;
         origin = gameObject.transform.position;
-        target = origin.x - 1.0f;
+        targetBlue = origin.x - 1.0f;
+        targetRed = origin.x + 1.0f;
         OrderLayer = gameObject.GetComponent<SortingGroup>().sortingOrder;
         childCanvasOrder = gameObject.transform.GetChild(0).GetChild(1).GetComponent<Canvas>().sortingOrder;
 
@@ -152,7 +170,7 @@ public class Card : MonoBehaviour
         //Test change Owner
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            ChangeSprite();
+            ChangeBGSprite();
             cardBG.GetComponent<SpriteRenderer>().sprite = currentSprite;
         }
 
@@ -210,9 +228,13 @@ public class Card : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if (!isOverCardHolder)
+        if (Team == Team.BLUE && !isOverCardHolder)
         {
-            transform.position = new Vector2(target, transform.position.y);
+            transform.position = new Vector2(targetBlue, transform.position.y);
+        }
+        if (Team == Team.RED && !isOverCardHolder)
+        {
+            transform.position = new Vector2(targetRed, transform.position.y);
         }
     }
 
@@ -224,14 +246,16 @@ public class Card : MonoBehaviour
         }
     }
 
-    void ChangeSprite()
+    void ChangeBGSprite()
     {
         if(currentSprite == spriteArray[0])
         {
             currentSprite = spriteArray[1];
+            cardBG.GetComponent<SpriteRenderer>().sprite = currentSprite;
         } else
         {
             currentSprite = spriteArray[0];
+            cardBG.GetComponent<SpriteRenderer>().sprite = currentSprite;
         }
     }
 
@@ -280,4 +304,59 @@ public class Card : MonoBehaviour
     }
 
 
+    public void UpdateTeam(Team team)
+    {
+        this.Team = team;
+        //this.background.color = GenericAttribute.GetAttribute<CustomColorAttribute>(team).HexadecimalToRGBColor();
+        ChangeBGSprite();
+
+        for (int i = 0; i < sides.Length; i++)
+        {
+            //this.sides[i].Background.color = GenericAttribute.GetAttribute<CustomColorAttribute>(team).HexadecimalToRGBColor();
+        }
+    }
+
+    //Attack
+    public void Attack()
+    {
+        int powerIndex = 0;
+        List<Card> capturedCards = new List<Card>();
+        for(int i =0; i < sides.Length; i++)
+        {
+            Card enemy = this.sides[i].GetTarget();
+            powerIndex = i + 2;
+
+            if(powerIndex >= sides.Length)
+            {
+                powerIndex = powerIndex % 2;
+            }
+            if (enemy != null && enemy.hasBeenPlayed)
+            {
+                //Normal capture
+                if (enemy.Team != this.Team) //&& get Side of enemy Card)
+                {
+                    capturedCards.Add(enemy);
+                }
+            }
+        }
+
+        //Switch Team
+        capturedCards.ForEach(card =>
+        {
+            card.UpdateTeam(this.Team);
+
+            //if (activeRule)
+            //{
+            //   card.Attack(true);
+            //}
+        });
+
+    }
+
+}
+
+public enum Team
+{
+    BLUE = 0,
+    RED = 1
 }

@@ -912,6 +912,7 @@ GameObject:
   - component: {fileID: 7885009767922744093}
   - component: {fileID: 5713111939978192887}
   - component: {fileID: 4930457065582954199}
+  - component: {fileID: 3382303335311485692}
   m_Layer: 6
   m_Name: Card
   m_TagString: Card
@@ -1026,6 +1027,12 @@ MonoBehaviour:
   backCard: {fileID: 558908264770425865}
   backSprite: {fileID: 21300000, guid: 5f1ba0f32c62a7c488b4feb8aab336ef, type: 3}
   uncoverTime: 12
+  sides:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  <Team>k__BackingField: 0
   TopText: {fileID: 7518636280967643854}
   RightText: {fileID: 2987599991438413210}
   BottomText: {fileID: 5744008996134619750}
@@ -1087,3 +1094,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8428709209511550070}
   m_CullTransparentMesh: 1
+--- !u!114 &3382303335311485692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8428709209511550070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f4d813bb07af4b40a8696d6a387a3ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raycastOffset: {x: 0, y: 0, z: 0}
+  raycastVector: {x: 0, y: 0, z: 0}
+  sideName: 0

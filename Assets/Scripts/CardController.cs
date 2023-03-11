@@ -40,8 +40,9 @@ public class CardController : MonoBehaviour
 				g.GetComponent<Card>().dragging = false;
 				g.GetComponent<SortingGroup>().sortingOrder = g.GetComponent<Card>().OrderLayer;
 				g.GetComponent<Card>().transform.GetChild(0).GetChild(1).gameObject.GetComponent<Canvas>().sortingOrder = g.GetComponent<Card>().childCanvasOrder;
-				//hasBeenPlayed = true; //implement soonTM
+				//g.GetComponent<Card>().hasBeenPlayed = true; //implement soonTM
 				g.GetComponent<Card>().CardHolder.GetComponent<CardHolder>().PlaceCard();
+				g.GetComponent<Card>().Attack();
 			}
 			//Get to originPos if CardHolder == true && Available == false (On used CardHolder)
 			if (Input.GetMouseButtonUp(0) && g.GetComponent<Card>().isOverCardHolder && !g.GetComponent<Card>().Available)

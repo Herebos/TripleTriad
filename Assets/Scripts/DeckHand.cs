@@ -15,15 +15,33 @@ public class DeckHand : MonoBehaviour
 
     private void Start()
     {
-        foreach(var holder in HandList)
+        if (gameObject.name == "DeckHandBlue")
         {
-            handPos = holder.transform.position;
-            GameObject newCard = Instantiate(Card, handPos, Quaternion.identity);
-            newCard.AddComponent<SortingGroup>().sortingOrder = i;
-            canvas = newCard.transform.GetChild(0).GetChild(1).gameObject;
-            canvas.GetComponent<Canvas>().sortingOrder = i;
-            i++;
-            Cards.Add(newCard);
+            foreach (var holder in HandList)
+            {
+                handPos = holder.transform.position;
+                GameObject newCard = Instantiate(Card, handPos, Quaternion.identity);
+                newCard.AddComponent<SortingGroup>().sortingOrder = i;
+                newCard.GetComponent<Card>().Team = Team.BLUE;
+                canvas = newCard.transform.GetChild(0).GetChild(1).gameObject;
+                canvas.GetComponent<Canvas>().sortingOrder = i;
+                i++;
+                Cards.Add(newCard);
+            }
+        }
+        if (gameObject.name == "DeckHandRed")
+        {
+            foreach (var holder in HandList)
+            {
+                handPos = holder.transform.position;
+                GameObject newCard = Instantiate(Card, handPos, Quaternion.identity);
+                newCard.AddComponent<SortingGroup>().sortingOrder = i;
+                newCard.GetComponent<Card>().Team = Team.RED;
+                canvas = newCard.transform.GetChild(0).GetChild(1).gameObject;
+                canvas.GetComponent<Canvas>().sortingOrder = i;
+                i++;
+                Cards.Add(newCard);
+            }
         }
     }
 

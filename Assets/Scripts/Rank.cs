@@ -16,9 +16,4 @@ public class Rank : MonoBehaviour
         Left = left;
     }
 
-    private void Start()
-    {
-        Debug.Log(Top);
-    }
-
 }
