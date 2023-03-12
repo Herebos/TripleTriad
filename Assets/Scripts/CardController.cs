@@ -40,7 +40,7 @@ public class CardController : MonoBehaviour
 				g.GetComponent<Card>().dragging = false;
 				g.GetComponent<SortingGroup>().sortingOrder = g.GetComponent<Card>().OrderLayer;
 				g.GetComponent<Card>().transform.GetChild(0).GetChild(1).gameObject.GetComponent<Canvas>().sortingOrder = g.GetComponent<Card>().childCanvasOrder;
-				//g.GetComponent<Card>().hasBeenPlayed = true; //implement soonTM
+				//g.GetComponent<Card>().hasBeenPlayed = true;
 				g.GetComponent<Card>().CardHolder.GetComponent<CardHolder>().PlaceCard();
 				g.GetComponent<Card>().Attack();
 			}

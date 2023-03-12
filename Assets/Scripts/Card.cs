@@ -85,12 +85,12 @@ public class Card : MonoBehaviour
         if(Team == Team.BLUE)
         {
             //cardBG.GetComponent<SpriteRenderer>().sprite = currentSprite;
-            cardBG.GetComponent<SpriteRenderer>().sprite = spriteArray[1];
+            cardBG.GetComponent<SpriteRenderer>().sprite = spriteArray[0];
         }
         if (Team == Team.RED)
         {
             //cardBG.GetComponent<SpriteRenderer>().sprite = currentSprite;
-            cardBG.GetComponent<SpriteRenderer>().sprite = spriteArray[2];
+            cardBG.GetComponent<SpriteRenderer>().sprite = spriteArray[1];
         }
 
         //Sprite
@@ -196,9 +196,17 @@ public class Card : MonoBehaviour
             Vector3 mousePos2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
             Vector2 direction = mousePos2 - transform.position;
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            float degreesPerSecond = 90.0f * Time.deltaTime;
-            transform.SetPositionAndRotation(mousePos, Quaternion.RotateTowards(transform.rotation, targetRotation, degreesPerSecond));
+
+            if (direction.sqrMagnitude > 0)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+                float degreesPerSecond = 90.0f * Time.deltaTime;
+                transform.SetPositionAndRotation(mousePos, Quaternion.RotateTowards(transform.rotation, targetRotation, degreesPerSecond));
+            } else
+            {
+                transform.SetPositionAndRotation(mousePos, Quaternion.Euler(0, 0, 0));
+            }
             //Sorting Order
             gameObject.GetComponent<SortingGroup>().sortingOrder = 10;
             gameObject.transform.GetChild(0).GetChild(1).gameObject.GetComponent<Canvas>().sortingOrder = 10;
@@ -248,14 +256,16 @@ public class Card : MonoBehaviour
 
     void ChangeBGSprite()
     {
-        if(currentSprite == spriteArray[0])
+        if(Team == Team.RED)
         {
-            currentSprite = spriteArray[1];
-            cardBG.GetComponent<SpriteRenderer>().sprite = currentSprite;
-        } else
+            //currentSprite = spriteArray[1];
+            Debug.Log("ChangeBG inside from blue to red");
+            cardBG.GetComponent<SpriteRenderer>().sprite = spriteArray[1];
+        } if (Team == Team.BLUE)
         {
-            currentSprite = spriteArray[0];
-            cardBG.GetComponent<SpriteRenderer>().sprite = currentSprite;
+            //currentSprite = spriteArray[0];
+            Debug.Log("ChangeBG inside from red to blue");
+            cardBG.GetComponent<SpriteRenderer>().sprite = spriteArray[0];
         }
     }
 
@@ -291,7 +301,10 @@ public class Card : MonoBehaviour
                     // otherwise you would still see the same sprite because they are sorted 
                     // by order not distance (by default)
                     Transform c = card.GetChild(i);
-                    c.GetComponent<SpriteRenderer>().sortingOrder *= -1;
+                    if (c.GetComponent<SpriteRenderer>() == true)
+                    {
+                        c.GetComponent<SpriteRenderer>().sortingOrder *= -1;
+                    }
 
                     yield return null;
                 }
@@ -307,13 +320,16 @@ public class Card : MonoBehaviour
     public void UpdateTeam(Team team)
     {
         this.Team = team;
-        //this.background.color = GenericAttribute.GetAttribute<CustomColorAttribute>(team).HexadecimalToRGBColor();
+        Debug.Log("Update Team inside");
+        Debug.Log(currentSprite);
+        StartCoroutine(UncoverCard(gameObject.transform, true));
         ChangeBGSprite();
+        StartCoroutine(UncoverCard(gameObject.transform, true));
 
-        for (int i = 0; i < sides.Length; i++)
-        {
-            //this.sides[i].Background.color = GenericAttribute.GetAttribute<CustomColorAttribute>(team).HexadecimalToRGBColor();
-        }
+        //for (int i = 0; i < sides.Length; i++)
+        //{
+        //    //this.sides[i].Background.color = GenericAttribute.GetAttribute<CustomColorAttribute>(team).HexadecimalToRGBColor();
+        //}
     }
 
     //Attack
@@ -324,16 +340,17 @@ public class Card : MonoBehaviour
         for(int i =0; i < sides.Length; i++)
         {
             Card enemy = this.sides[i].GetTarget();
+            //Debug.Log(enemy);
             powerIndex = i + 2;
 
             if(powerIndex >= sides.Length)
             {
                 powerIndex = powerIndex % 2;
             }
-            if (enemy != null && enemy.hasBeenPlayed)
+            if (enemy != null )//&& enemy.hasBeenPlayed)
             {
                 //Normal capture
-                if (enemy.Team != this.Team) //&& get Side of enemy Card)
+                if (enemy.Team != this.Team) //&& get Side of enemy Card < Card.Side)
                 {
                     capturedCards.Add(enemy);
                 }
@@ -344,6 +361,7 @@ public class Card : MonoBehaviour
         capturedCards.ForEach(card =>
         {
             card.UpdateTeam(this.Team);
+            Debug.Log("Update Team");
 
             //if (activeRule)
             //{

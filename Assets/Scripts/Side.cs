@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Side : MonoBehaviour
 {
@@ -9,11 +10,13 @@ public class Side : MonoBehaviour
     [SerializeField] private SideName sideName;
     public Card GetTarget()
     {
-        LayerMask hitLaterMask = 1 << LayerMask.NameToLayer("Cards");
+        LayerMask hitLaterMask = 1 << LayerMask.NameToLayer("Cards") | 1 << LayerMask.NameToLayer("CardSides");
         //hitLaterMask |= 1 << LayerMask.NameToLayer("Wall");
         RaycastHit2D hit = Physics2D.Raycast(this.transform.position + this.raycastOffset, this.raycastVector, 1f, hitLaterMask);
-        Debug.Log(hit.transform.gameObject.name);
-        return hit.transform.gameObject.GetComponent<Card>();
+        //Debug.Log(hit.transform);
+        //Debug.Log(hit.transform.gameObject.name);
+        //Debug.Log(hit.transform.gameObject.transform.GetChild(0).GetChild(1).gameObject.GetComponent<Canvas>().GetComponentInChildren<TextMeshProUGUI>().ToString());
+        return hit.transform?.gameObject.GetComponent<Card>();
     }
 
     private void OnDrawGizmos()
