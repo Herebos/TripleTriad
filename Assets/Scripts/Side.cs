@@ -11,11 +11,9 @@ public class Side : MonoBehaviour
     public Card GetTarget()
     {
         LayerMask hitLaterMask = 1 << LayerMask.NameToLayer("Cards") | 1 << LayerMask.NameToLayer("CardSides");
-        //hitLaterMask |= 1 << LayerMask.NameToLayer("Wall");
         RaycastHit2D hit = Physics2D.Raycast(this.transform.position + this.raycastOffset, this.raycastVector, 1f, hitLaterMask);
-        //Debug.Log(hit.transform);
-        //Debug.Log(hit.transform.gameObject.name);
-        //Debug.Log(hit.transform.gameObject.transform.GetChild(0).GetChild(1).gameObject.GetComponent<Canvas>().GetComponentInChildren<TextMeshProUGUI>().ToString());
+        //Debug.Log(hit.transform?.gameObject.name);
+        //Debug.Log(hit.transform?.gameObject.transform.GetChild(0).GetChild(1).gameObject.GetComponent<Canvas>().GetComponentInChildren<TextMeshProUGUI>().text.ToString());
         return hit.transform?.gameObject.GetComponent<Card>();
     }
 

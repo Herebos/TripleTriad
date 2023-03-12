@@ -81,7 +81,7 @@ public class Card : MonoBehaviour
         //Behaviour
         Id = Random.Range(0, 109);
         hasBeenPlayed = false;
-        UpdateTeam(this.Team);
+        UpdateTeam(Team);
         if(Team == Team.BLUE)
         {
             //cardBG.GetComponent<SpriteRenderer>().sprite = currentSprite;
@@ -319,16 +319,15 @@ public class Card : MonoBehaviour
 
     public void UpdateTeam(Team team)
     {
-        this.Team = team;
+        Team = team;
         Debug.Log("Update Team inside");
-        Debug.Log(currentSprite);
         StartCoroutine(UncoverCard(gameObject.transform, true));
         ChangeBGSprite();
         StartCoroutine(UncoverCard(gameObject.transform, true));
 
         //for (int i = 0; i < sides.Length; i++)
         //{
-        //    //this.sides[i].Background.color = GenericAttribute.GetAttribute<CustomColorAttribute>(team).HexadecimalToRGBColor();
+        //    //sides[i].Background.color = GenericAttribute.GetAttribute<CustomColorAttribute>(team).HexadecimalToRGBColor();
         //}
     }
 
@@ -339,8 +338,8 @@ public class Card : MonoBehaviour
         List<Card> capturedCards = new List<Card>();
         for(int i =0; i < sides.Length; i++)
         {
-            Card enemy = this.sides[i].GetTarget();
-            //Debug.Log(enemy);
+            Card enemy = sides[i].GetTarget();
+            Debug.Log(i);
             powerIndex = i + 2;
 
             if(powerIndex >= sides.Length)
@@ -350,9 +349,68 @@ public class Card : MonoBehaviour
             if (enemy != null )//&& enemy.hasBeenPlayed)
             {
                 //Normal capture
-                if (enemy.Team != this.Team) //&& get Side of enemy Card < Card.Side)
+                if (i == 0)
                 {
-                    capturedCards.Add(enemy);
+                    string PlayedTopText = TopText.text;
+                    int PlayedTopInt;
+                    int.TryParse(PlayedTopText, out PlayedTopInt);
+                    string EnemyBottomText = enemy.BottomText.text;
+                    int EnemyBottomInt;
+                    int.TryParse(EnemyBottomText, out EnemyBottomInt);
+                    if (enemy.Team != Team && PlayedTopInt > EnemyBottomInt) //&& get Side of enemy Card < Card.Side)
+                    {
+                        Debug.Log("PlayedTop " + PlayedTopText);
+                        Debug.Log("Ennemy Bottom " + EnemyBottomText);
+                        capturedCards.Add(enemy);
+                    }
+                }
+                if (i == 1)
+                {
+                    string PlayedRightText = RightText.text;
+                    int PlayedRightInt;
+                    int.TryParse(PlayedRightText, out PlayedRightInt);
+                    string EnemyLeftText = enemy.LeftText.text;
+                    int EnemyLeftInt;
+                    int.TryParse(EnemyLeftText, out EnemyLeftInt);
+                    //Normal capture
+                    if (enemy.Team != Team && PlayedRightInt > EnemyLeftInt) //&& get Side of enemy Card < Card.Side)
+                    {
+                        Debug.Log("PlayedRight " + PlayedRightText);
+                        Debug.Log("EnemyLeft " + EnemyLeftText);
+                        capturedCards.Add(enemy);
+                    }
+                }
+                if (i == 2)
+                {
+                    string PlayedBottomText = BottomText.text;
+                    int PlayedBottomInt;
+                    int.TryParse(PlayedBottomText, out PlayedBottomInt);
+                    string EnemyTopText = enemy.TopText.text;
+                    int EnemyTopInt;
+                    int.TryParse(EnemyTopText, out EnemyTopInt);
+                    //Normal capture
+                    if (enemy.Team != Team && PlayedBottomInt > EnemyTopInt) //&& get Side of enemy Card < Card.Side)
+                    {
+                        Debug.Log("PlayedBottom " + PlayedBottomText);
+                        Debug.Log("EnemyTop " + EnemyTopText);
+                        capturedCards.Add(enemy);
+                    }
+                }
+                if (i == 3)
+                {
+                    string PlayedLeftText = LeftText.text;
+                    int PlayedLeftInt;
+                    int.TryParse(PlayedLeftText, out PlayedLeftInt);
+                    string EnemyRightText = enemy.RightText.text;
+                    int EnemyRightInt;
+                    int.TryParse(EnemyRightText, out EnemyRightInt);
+                    //Normal capture
+                    if (enemy.Team != Team && PlayedLeftInt > EnemyRightInt) //&& get Side of enemy Card < Card.Side)
+                    {
+                        Debug.Log("PlayedLeft " + PlayedLeftText);
+                        Debug.Log("EnemyRight " + EnemyRightText);
+                        capturedCards.Add(enemy);
+                    }
                 }
             }
         }
@@ -360,8 +418,8 @@ public class Card : MonoBehaviour
         //Switch Team
         capturedCards.ForEach(card =>
         {
-            card.UpdateTeam(this.Team);
-            Debug.Log("Update Team");
+            card.UpdateTeam(Team);
+            //Debug.Log("Update Team");
 
             //if (activeRule)
             //{
