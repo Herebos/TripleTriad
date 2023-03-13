@@ -201,7 +201,7 @@ public class Card : MonoBehaviour
             {
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
 
-                float degreesPerSecond = 90.0f * Time.deltaTime;
+                float degreesPerSecond = 50.0f * Time.deltaTime;
                 transform.SetPositionAndRotation(mousePos, Quaternion.RotateTowards(transform.rotation, targetRotation, degreesPerSecond));
             } else
             {
@@ -352,9 +352,11 @@ public class Card : MonoBehaviour
                 if (i == 0)
                 {
                     string PlayedTopText = TopText.text;
+                    PlayedTopText = PlayedTopText.Replace("A", "10");
                     int PlayedTopInt;
                     int.TryParse(PlayedTopText, out PlayedTopInt);
                     string EnemyBottomText = enemy.BottomText.text;
+                    EnemyBottomText = EnemyBottomText.Replace("A", "10");
                     int EnemyBottomInt;
                     int.TryParse(EnemyBottomText, out EnemyBottomInt);
                     if (enemy.Team != Team && PlayedTopInt > EnemyBottomInt) //&& get Side of enemy Card < Card.Side)
@@ -367,9 +369,11 @@ public class Card : MonoBehaviour
                 if (i == 1)
                 {
                     string PlayedRightText = RightText.text;
+                    PlayedRightText = PlayedRightText.Replace("A", "10");
                     int PlayedRightInt;
                     int.TryParse(PlayedRightText, out PlayedRightInt);
                     string EnemyLeftText = enemy.LeftText.text;
+                    EnemyLeftText = EnemyLeftText.Replace("A", "10");
                     int EnemyLeftInt;
                     int.TryParse(EnemyLeftText, out EnemyLeftInt);
                     //Normal capture
@@ -383,9 +387,11 @@ public class Card : MonoBehaviour
                 if (i == 2)
                 {
                     string PlayedBottomText = BottomText.text;
+                    PlayedBottomText = PlayedBottomText.Replace("A", "10");
                     int PlayedBottomInt;
                     int.TryParse(PlayedBottomText, out PlayedBottomInt);
                     string EnemyTopText = enemy.TopText.text;
+                    EnemyTopText = EnemyTopText.Replace("A", "10");
                     int EnemyTopInt;
                     int.TryParse(EnemyTopText, out EnemyTopInt);
                     //Normal capture
@@ -399,9 +405,11 @@ public class Card : MonoBehaviour
                 if (i == 3)
                 {
                     string PlayedLeftText = LeftText.text;
+                    PlayedLeftText = PlayedLeftText.Replace("A", "10");
                     int PlayedLeftInt;
                     int.TryParse(PlayedLeftText, out PlayedLeftInt);
                     string EnemyRightText = enemy.RightText.text;
+                    EnemyRightText = EnemyRightText.Replace("A", "10");
                     int EnemyRightInt;
                     int.TryParse(EnemyRightText, out EnemyRightInt);
                     //Normal capture
