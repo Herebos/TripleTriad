@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -16,19 +17,26 @@ public class MainMenuController : MonoBehaviour
         mainMenu.SetActive(false);
     }
 
-    public void ClickOnDeckBuildingMain()
+    public void ClickOnCollectionMain()
     {
-        Debug.Log("clicked DB Main");
+        Debug.Log("clicked Collection Main");
+        SceneManager.LoadSceneAsync(3, LoadSceneMode.Single);
+        SceneManager.UnloadSceneAsync(0);
     }
 
     public void ClickOnShopMain()
     {
         Debug.Log("clicked Shop Main");
+        SceneManager.LoadSceneAsync(2, LoadSceneMode.Single);
+        SceneManager.UnloadSceneAsync(0);
     }
 
+    //Play menu
     public void ClickOnPlay()
     {
         Debug.Log("clicked Play");
+        SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
+        SceneManager.UnloadSceneAsync(0);
     }
 
     public void ClickOnChooseDeck()
